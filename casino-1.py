@@ -8,6 +8,28 @@ st.set_page_config(page_title="Test Your Luck", layout="centered")
 st.markdown("""
 <style>
 
+.machine {
+    border: 8px solid #8b0000;
+    border-radius: 25px;
+    padding: 25px;
+    background: linear-gradient(to bottom, #3a0000, #0d0000);
+    box-shadow: 0px 0px 40px #ff0000aa;
+    max-width: 500px;
+    margin: auto;
+}
+
+.title-bar {
+    background: linear-gradient(to right, #66ccff, #99ddff);
+    color: #000;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0px 0px 15px #66ccff;
+}
+
 .screen {
     background: #0a0a0a;
     padding: 25px;
@@ -57,7 +79,8 @@ simbolos = ["🍒", "🍋", "⭐", "💎", "7"]
 # --- MÁQUINA ---
 st.markdown('<div class="machine">', unsafe_allow_html=True)
 
-st.title("🎰 TEST YOUR LUCK")
+# Barra azul con título
+st.markdown('<div class="title-bar">🎰 TEST YOUR LUCK</div>', unsafe_allow_html=True)
 
 st.subheader(f"Créditos: {st.session_state.creditos}")
 
