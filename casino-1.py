@@ -8,16 +8,6 @@ st.set_page_config(page_title="Test Your Luck", layout="centered")
 st.markdown("""
 <style>
 
-.machine {
-    border: 8px solid #8b0000;
-    border-radius: 25px;
-    padding: 25px;
-    background: linear-gradient(to bottom, #3a0000, #0d0000);
-    box-shadow: 0px 0px 40px #ff0000aa;
-    max-width: 500px;
-    margin: auto;
-}
-
 .title-bar {
     background: linear-gradient(to right, #66ccff, #99ddff);
     color: #000;
