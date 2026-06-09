@@ -1,4 +1,8 @@
 import random
+import streamlit as st
+
+st.title("🎰 Tragaperras Casino")
+st.write("Bienvenido a mi app de prueba Streamlit.")
 
 # Créditos iniciales
 creditos = 100
