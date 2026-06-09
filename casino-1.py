@@ -169,17 +169,6 @@ if jugar:
         color_linea = "#ff0033"   # rojo
         color_texto = "#ff0033"
 
-    # línea atravesando los símbolos
-    final_html = (
-        f'<div class="symbol-container">'
-        f'<div class="line-through" style="background:{color_linea};"></div>' +
-        "".join(f'<span class="cs2-box">{s}</span>' for s in resultado) +
-        '</div>' +
-        f'<div class="result-text" style="color:{color_texto};">{mensaje}</div>'
-    )
-
-    pantalla.markdown(f'<div class="screen">{final_html}</div>', unsafe_allow_html=True)
-
     # Premios
     if mensaje == "WIN":
         premio = apuesta * 2
