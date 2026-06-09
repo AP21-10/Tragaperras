@@ -116,7 +116,7 @@ if st.session_state.creditos <= 0:
             st.warning("Introduce un número válido.")
     st.stop()
 
-# Apuesta
+# Apuesta de dinero
 apuesta_texto = st.text_input("¿Cuánto quieres apostar?", placeholder="Escribe tu apuesta")
 
 # Botón jugar
@@ -169,7 +169,7 @@ if jugar:
         color_linea = "#ff0033"   # rojo
         color_texto = "#ff0033"
 
-    # Construcción visual final con línea atravesando los símbolos
+    # línea atravesando los símbolos
     final_html = (
         f'<div class="symbol-container">'
         f'<div class="line-through" style="background:{color_linea};"></div>' +
