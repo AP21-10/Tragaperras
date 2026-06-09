@@ -2,7 +2,7 @@ import random
 import time
 import streamlit as st
 
-st.set_page_config(page_title="Tragaperras Deluxe", layout="centered")
+st.set_page_config(page_title="Test Your Luck", layout="centered")
 
 # --- ESTILOS DE MÁQUINA REAL + DISPLAY CS2 ---
 st.markdown("""
@@ -67,7 +67,7 @@ simbolos = ["🍒", "🍋", "⭐", "💎", "7"]
 # --- MÁQUINA ---
 st.markdown('<div class="machine">', unsafe_allow_html=True)
 
-st.title("🎰 TRAGAPERRAS DELUXE")
+st.title("🎰 TEST YOUR LUCK")
 
 st.subheader(f"Créditos: {st.session_state.creditos}")
 
@@ -148,4 +148,3 @@ if st.session_state.ultimo_juego:
     st.write(" | ".join(st.session_state.ultimo_juego))
 
 st.markdown('</div>', unsafe_allow_html=True)
-
