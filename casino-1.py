@@ -168,7 +168,13 @@ if jugar:
         mensaje = "LOOSE"
         color_linea = "#ff0033"   # rojo
         color_texto = "#ff0033"
+ # loose or win
+    final_html = (
+        f'<div class="symbol-container">'
+        f'<div class="result-text" style="color:{color_texto};">{mensaje}</div>'
+    )
 
+    pantalla.markdown(f'<div class="screen">{final_html}</div>', unsafe_allow_html=True)
     # Premios
     if mensaje == "WIN":
         premio = apuesta * 2
