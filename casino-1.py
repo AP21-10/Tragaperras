@@ -69,7 +69,7 @@ if st.button("🎲 Jugar"):
         st.write("😢 No has ganado esta vez.")
 
     # Esperar 5 segundos y reiniciar
-    time.sleep(5)
+    time.sleep(0.5)
     st.rerun()
 
 # Mostrar último resultado si existe
