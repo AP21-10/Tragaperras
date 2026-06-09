@@ -65,7 +65,7 @@ if st.button("🎲 Jugar"):
 
     # Esperar 5 segundos y reiniciar
     time.sleep(5)
-    st.experimental_rerun()
+    st.rerun()
 
 # Mostrar último resultado si existe
 if st.session_state.ultimo_juego:
