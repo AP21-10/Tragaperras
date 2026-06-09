@@ -50,11 +50,18 @@ if st.button("🎲 Jugar"):
         st.stop()
 
     st.session_state.creditos -= apuesta
+
+    # --- ANIMACIÓN PREMIUM (rodillos cayendo) ---
+    slot = st.empty()
+    for _ in range(12):
+        columna = "\n".join(random.choice(simbolos) for _ in range(5))
+        slot.markdown(f"### {columna}")
+        time.sleep(0.08)
+
+    # Resultado final
     resultado = [random.choice(simbolos) for _ in range(3)]
     st.session_state.ultimo_juego = resultado
-
-    st.write("**Girando...**")
-    st.write(" | ".join(resultado))
+    slot.markdown(f"# {resultado[0]} | {resultado[1]} | {resultado[2]}")
 
     # Reglas de premios
     if resultado[0] == resultado[1] == resultado[2]:
@@ -69,12 +76,11 @@ if st.button("🎲 Jugar"):
         st.write("😢 No has ganado esta vez.")
 
     # Esperar 5 segundos y reiniciar
-    time.sleep(0.5)
+    time.sleep(5)
     st.rerun()
 
 # Mostrar último resultado si existe
 if st.session_state.ultimo_juego:
     st.write("Último resultado:")
     st.write(" | ".join(st.session_state.ultimo_juego))
-if st.session_state.creditos <= 0:
-    st.error("Te has quedado sin créditos. Fin del juego.")
+
