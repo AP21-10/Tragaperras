@@ -2,42 +2,57 @@ import random
 import time
 import streamlit as st
 
-st.set_page_config(page_title="Tragaperras", layout="centered")
+st.set_page_config(page_title="Tragaperras Deluxe", layout="centered")
 
-# --- ESTILOS DE MÁQUINA REAL ---
+# --- ESTILOS DE MÁQUINA REAL + DISPLAY CS2 ---
 st.markdown("""
 <style>
+
 .machine {
-    border: 6px solid #b30000;
-    border-radius: 20px;
-    padding: 20px;
-    background: linear-gradient(to bottom, #4d0000, #1a0000);
-    box-shadow: 0px 0px 25px #ff0000;
+    border: 8px solid #8b0000;
+    border-radius: 25px;
+    padding: 25px;
+    background: linear-gradient(to bottom, #3a0000, #0d0000);
+    box-shadow: 0px 0px 40px #ff0000aa;
+    max-width: 500px;
+    margin: auto;
 }
+
 .screen {
-    background: black;
-    color: #00ff00;
-    font-size: 40px;
-    text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-    border: 4px solid #333;
+    background: #0a0a0a;
+    padding: 25px;
+    border-radius: 15px;
+    border: 4px solid #444;
     margin-bottom: 20px;
+    text-align: center;
 }
+
+.cs2-box {
+    display: inline-block;
+    background: linear-gradient(145deg, #1a1a1a, #000000);
+    border: 3px solid #00eaff;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin: 5px;
+    font-size: 45px;
+    box-shadow: 0px 0px 15px #00eaffaa;
+}
+
 .button-play {
     background-color: #ffcc00;
     color: black;
     font-size: 28px;
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 12px;
     width: 100%;
-    border: 3px solid #b38f00;
+    border: 4px solid #b38f00;
+    cursor: pointer;
 }
-.lights {
-    text-align: center;
-    font-size: 25px;
-    margin-bottom: 10px;
+
+.button-play:hover {
+    background-color: #ffe680;
 }
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -51,8 +66,6 @@ simbolos = ["🍒", "🍋", "⭐", "💎", "7"]
 
 # --- MÁQUINA ---
 st.markdown('<div class="machine">', unsafe_allow_html=True)
-
-st.markdown('<div class="lights">🔴 🟡 🔵 🟢 🔵 🟡 🔴</div>', unsafe_allow_html=True)
 
 st.title("🎰 TRAGAPERRAS DELUXE")
 
@@ -78,7 +91,7 @@ apuesta_texto = st.text_input("¿Cuánto quieres apostar?", placeholder="Escribe
 # Botón jugar
 jugar = st.button("🎲 JUGAR", key="play_button")
 
-# --- PANTALLA DE LA MÁQUINA ---
+# --- PANTALLA ---
 pantalla = st.empty()
 
 if jugar:
@@ -98,9 +111,12 @@ if jugar:
 
     st.session_state.creditos -= apuesta
 
-    # --- ANIMACIÓN PREMIUM ---
+    # --- ANIMACIÓN PREMIUM TIPO CS2 ---
     for _ in range(12):
-        columna = "\n".join(random.choice(simbolos) for _ in range(5))
+        columna = "".join(
+            f'<span class="cs2-box">{random.choice(simbolos)}</span>'
+            for _ in range(3)
+        )
         pantalla.markdown(f'<div class="screen">{columna}</div>', unsafe_allow_html=True)
         time.sleep(0.08)
 
@@ -108,10 +124,8 @@ if jugar:
     resultado = [random.choice(simbolos) for _ in range(3)]
     st.session_state.ultimo_juego = resultado
 
-    pantalla.markdown(
-        f'<div class="screen">{resultado[0]} | {resultado[1]} | {resultado[2]}</div>',
-        unsafe_allow_html=True
-    )
+    final_html = "".join(f'<span class="cs2-box">{s}</span>' for s in resultado)
+    pantalla.markdown(f'<div class="screen">{final_html}</div>', unsafe_allow_html=True)
 
     # Premios
     if resultado[0] == resultado[1] == resultado[2]:
