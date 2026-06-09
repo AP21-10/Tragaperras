@@ -66,7 +66,8 @@ if "creditos" not in st.session_state:
 if "ultimo_juego" not in st.session_state:
     st.session_state.ultimo_juego = None
 
-simbolos = ["🍒", "🍋", "⭐", "💎", "🍀"]
+simbolos = ["🍒", "🍋", "🔔", "⭐", "💎", "🍉", "7️⃣", "💰"]
+
 
 
 # --- MÁQUINA ---
@@ -145,8 +146,6 @@ if jugar:
     else:
         st.write("😢 No has ganado esta vez.")
 
-    time.sleep(5)
-    st.rerun()
 
 # Último resultado
 if st.session_state.ultimo_juego:
