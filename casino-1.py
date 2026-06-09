@@ -8,7 +8,6 @@ st.write("Bienvenido a mi app de prueba Streamlit.")
 # Estado inicial
 if "creditos" not in st.session_state:
     st.session_state.creditos = 100
-
 if "ultimo_juego" not in st.session_state:
     st.session_state.ultimo_juego = None
 
@@ -17,22 +16,31 @@ simbolos = ["🍒", "🍋", "⭐", "💎", "7"]
 # Mostrar créditos
 st.subheader(f"Créditos disponibles: {st.session_state.creditos}")
 
+# Si no hay créditos, ofrecer depósito
+if st.session_state.creditos <= 0:
+    st.error("Te has quedado sin créditos. Fin del juego.")
+    deposito_texto = st.text_input("💰 Ingresa la cantidad que quieres depositar:", placeholder="Ejemplo: 100")
+    if st.button("💵 Depositar"):
+        if deposito_texto.isdigit() and int(deposito_texto) > 0:
+            st.session_state.creditos = int(deposito_texto)
+            st.success(f"Has depositado {deposito_texto} créditos. ¡Puedes seguir jugando!")
+            time.sleep(2)
+            st.rerun()
+        else:
+            st.warning("Introduce una cantidad válida mayor que 0.")
+    st.stop()
+
 # Campo para escribir la apuesta
-apuesta_texto = st.text_input(
-    "¿Cuánto quieres apostar?",
-    placeholder="Escribe tu apuesta aquí"
-)
+apuesta_texto = st.text_input("¿Cuánto quieres apostar?", placeholder="Escribe tu apuesta aquí")
 
 # Botón para jugar
 if st.button("🎲 Jugar"):
-    # Validar que se ha escrito un número
     if not apuesta_texto.isdigit():
         st.error("Introduce un número válido.")
         st.stop()
 
     apuesta = int(apuesta_texto)
 
-    # Validaciones
     if apuesta <= 0:
         st.warning("La apuesta debe ser mayor que 0.")
         st.stop()
@@ -41,10 +49,7 @@ if st.button("🎲 Jugar"):
         st.error("No tienes suficientes créditos.")
         st.stop()
 
-    # Aplicar apuesta
     st.session_state.creditos -= apuesta
-
-    # Tirada
     resultado = [random.choice(simbolos) for _ in range(3)]
     st.session_state.ultimo_juego = resultado
 
@@ -71,7 +76,5 @@ if st.button("🎲 Jugar"):
 if st.session_state.ultimo_juego:
     st.write("Último resultado:")
     st.write(" | ".join(st.session_state.ultimo_juego))
-
-# Fin del juego
 if st.session_state.creditos <= 0:
     st.error("Te has quedado sin créditos. Fin del juego.")
