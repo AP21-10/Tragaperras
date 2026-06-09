@@ -7,6 +7,8 @@ st.write("Bienvenido a mi app de prueba Streamlit.")
 # Estado inicial
 if "creditos" not in st.session_state:
     st.session_state.creditos = 100
+if "ultimo_juego" not in st.session_state:
+    st.session_state.ultimo_juego = None
 
 simbolos = ["🍒", "🍋", "⭐", "💎", "7"]
 
@@ -39,7 +41,9 @@ if st.button("🎲 Jugar"):
             st.info(f"✨ ¡Dos iguales! Ganas {premio} créditos.")
         else:
             st.write("😢 No has ganado esta vez.")
-
+ # Esperar 5 segundos y reiniciar
+    time.sleep(5)
+    st.experimental_rerun()
 # Fin del juego
 if st.session_state.creditos <= 0:
     st.error("Te has quedado sin créditos. Fin del juego.")
