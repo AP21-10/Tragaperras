@@ -119,7 +119,7 @@ if "game_over" not in st.session_state:
     st.session_state.game_over = False
 
 # --- INTERFAZ ---
-st.title("🃏 Blackjack — Study OS Casino")
+st.title("🃏 Blackjack")
 
 # BOTÓN REPARTIR
 if st.button("Repartir"):
