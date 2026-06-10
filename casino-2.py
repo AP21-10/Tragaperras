@@ -101,5 +101,5 @@ def mostrar_carta(carta):
         <div class="card-suit-top">{carta['palo']}</div>
         <div class="card-suit-center">{carta['palo']}</div>
         <div class="card-rank-bottom">{carta['tipo']}</div>
-        <div class="card-suit-bottom">
+        <div class="card-suit-bottom">"""
 
