@@ -6,7 +6,6 @@ st.set_page_config(page_title="Blackjack", layout="centered")
 # --- ESTILOS DE CARTAS REALISTAS ---
 st.markdown("""
 <style>
-
 .card {
     width: 90px;
     height: 130px;
@@ -63,7 +62,6 @@ st.markdown("""
     font-size: 20px;
     transform: rotate(180deg);
 }
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -95,47 +93,13 @@ def draw_card(deck):
 
 # --- FUNCIÓN PARA MOSTRAR CARTA REALISTA ---
 def mostrar_carta(carta):
-
-    # Color según palo
     color = "red" if carta["palo"] in ["♥", "♦"] else "black"
 
-    return f"""
+    html = f"""
     <div class="card" style="color:{color};">
         <div class="card-rank-top">{carta['tipo']}</div>
         <div class="card-suit-top">{carta['palo']}</div>
-
         <div class="card-suit-center">{carta['palo']}</div>
-
         <div class="card-rank-bottom">{carta['tipo']}</div>
-        <div class="card-suit-bottom">{carta['palo']}</div>
-    </div>
-    """
-
-# --- ESTADO ---
-if "deck" not in st.session_state:
-    st.session_state.deck = create_deck()
-
-if "player" not in st.session_state:
-    st.session_state.player = []
-
-if "dealer" not in st.session_state:
-    st.session_state.dealer = []
-
-# --- INTERFAZ ---
-st.title("🃏 Blackjack — Study OS Casino")
-
-if st.button("Repartir cartas"):
-    st.session_state.deck = create_deck()
-    st.session_state.player = [draw_card(st.session_state.deck), draw_card(st.session_state.deck)]
-    st.session_state.dealer = [draw_card(st.session_state.deck), draw_card(st.session_state.deck)]
-
-# --- MOSTRAR MANOS ---
-st.subheader("Jugador:")
-if st.session_state.player:
-    st.markdown("".join(mostrar_carta(c) for c in st.session_state.player), unsafe_allow_html=True)
-
-st.subheader("Dealer:")
-if st.session_state.dealer:
-    st.markdown("".join(mostrar_carta(c) for c in st.session_state.dealer), unsafe_allow_html=True)
-
+        <div class="card-suit-bottom">
 
