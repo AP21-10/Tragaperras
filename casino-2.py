@@ -8,6 +8,8 @@ st.markdown("""
 <style>
 st.markdown("""
 <style>
+st.markdown("""
+<style>
 .card {
     display: inline-flex;
     justify-content: center;
@@ -17,8 +19,8 @@ st.markdown("""
     border-radius: 10px;
     margin: 5px;
 
-    width: 90px;      
-    height: 120px;    
+    width: 90px;      /* ancho fijo */
+    height: 120px;    /* alto fijo */
 
     font-size: 35px;
     font-weight: bold;
