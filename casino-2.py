@@ -6,20 +6,30 @@ st.set_page_config(page_title="Blackjack", layout="centered")
 # --- ESTILOS VISUALES ---
 st.markdown("""
 <style>
+st.markdown("""
+<style>
 .card {
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
     background: white;
     border-radius: 10px;
-    padding: 15px 20px;
     margin: 5px;
+
+    width: 90px;      
+    height: 120px;    
+
     font-size: 35px;
     font-weight: bold;
     border: 3px solid #000;
-    width: 90px;
     text-align: center;
+
+    line-height: 1;   /* evita que el 10 se parta */
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 # --- DEFINICIÓN DE BARAJA ---
 palos = ["♠", "♥", "♦", "♣"]
