@@ -4,11 +4,11 @@ import streamlit as st
 st.set_page_config(page_title="Blackjack", layout="centered")
 
 # --- ESTILOS VISUALES ---
-st.markdown("""
+st.markdown(""")
 <style>
-st.markdown("""
+st.markdown(""")
 <style>
-st.markdown("""
+st.markdown(""")
 <style>
 .card {
     display: inline-flex;
