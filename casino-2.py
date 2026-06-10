@@ -67,7 +67,7 @@ if "dealer" not in st.session_state:
     st.session_state.dealer = []
 
 # --- INTERFAZ ---
-st.title("🃏 Blackjack — Study OS Casino")
+st.title("🃏 Blackjack")
 
 if st.button("Repartir cartas"):
     st.session_state.deck = create_deck()
