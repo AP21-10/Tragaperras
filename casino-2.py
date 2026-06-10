@@ -27,7 +27,16 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
-
+.button-play {
+    background-color: #ffcc00;
+    color: black;
+    font-size: 28px;
+    padding: 15px;
+    border-radius: 12px;
+    width: 100%;
+    border: 4px solid #b38f00;
+    cursor: pointer;
+}
 # --- DEFINICIÓN DE BARAJA ---
 palos = ["♠", "♥", "♦", "♣"]
 tipos = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
