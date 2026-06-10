@@ -4,11 +4,7 @@ import streamlit as st
 st.set_page_config(page_title="Blackjack", layout="centered")
 
 # --- ESTILOS VISUALES ---
-st.markdown(""")
-<style>
-st.markdown(""")
-<style>
-st.markdown(""")
+st.markdown("""
 <style>
 .card {
     display: inline-flex;
@@ -31,7 +27,6 @@ st.markdown(""")
 }
 </style>
 """, unsafe_allow_html=True)
-
 
 # --- DEFINICIÓN DE BARAJA ---
 palos = ["♠", "♥", "♦", "♣"]
@@ -79,7 +74,7 @@ if "dealer" not in st.session_state:
     st.session_state.dealer = []
 
 # --- INTERFAZ ---
-st.title("🃏 Blackjack")
+st.title("🃏 Blackjack — Study OS Casino")
 
 if st.button("Repartir cartas"):
     st.session_state.deck = create_deck()
@@ -94,4 +89,5 @@ if st.session_state.player:
 st.subheader("Dealer:")
 if st.session_state.dealer:
     st.markdown("".join(mostrar_carta(c) for c in st.session_state.dealer), unsafe_allow_html=True)
+ar_carta(c) for c in st.session_state.dealer), unsafe_allow_html=True)
 
