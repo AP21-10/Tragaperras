@@ -14,7 +14,9 @@ st.markdown("""
     margin: 5px;
     font-size: 35px;
     font-weight: bold;
-    border: 3px solid black;
+    border: 3px solid #000;
+    width: 70px;
+    text-align: center;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -46,7 +48,13 @@ def draw_card(deck):
     return deck.pop() if deck else None
 
 def mostrar_carta(carta):
-    return f"<span class='card'>{carta['tipo']}{carta['palo']}</span>"
+    # Palos rojos
+    if carta["palo"] in ["♥", "♦"]:
+        color = "red"
+    else:
+        color = "black"
+
+    return f"<span class='card' style='color:{color};'>{carta['tipo']}{carta['palo']}</span>"
 
 # --- ESTADO ---
 if "deck" not in st.session_state:
@@ -73,5 +81,4 @@ if st.session_state.player:
 
 st.subheader("Dealer:")
 if st.session_state.dealer:
-    st.markdown("".join(mostrar_carta(c) for c in st.session_state.dealer), unsafe_allow_html=True)
-
+    st.markdown("".join(mostrar_carta
