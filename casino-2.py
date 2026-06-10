@@ -81,4 +81,4 @@ if st.session_state.player:
 
 st.subheader("Dealer:")
 if st.session_state.dealer:
-    st.markdown("".join(mostrar_carta
+    st.markdown("".join(mostrar_carta))
