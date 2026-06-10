@@ -17,8 +17,6 @@ st.markdown("""
     position: relative;
     font-family: 'Arial', sans-serif;
 }
-
-/* Número arriba */
 .card-rank-top {
     position: absolute;
     top: 5px;
@@ -26,16 +24,12 @@ st.markdown("""
     font-size: 22px;
     font-weight: bold;
 }
-
-/* Palo arriba */
 .card-suit-top {
     position: absolute;
     top: 28px;
     left: 10px;
     font-size: 20px;
 }
-
-/* Palo grande centro */
 .card-suit-center {
     position: absolute;
     top: 45%;
@@ -43,8 +37,6 @@ st.markdown("""
     transform: translate(-50%, -50%);
     font-size: 45px;
 }
-
-/* Número abajo invertido */
 .card-rank-bottom {
     position: absolute;
     bottom: 5px;
@@ -53,8 +45,6 @@ st.markdown("""
     font-weight: bold;
     transform: rotate(180deg);
 }
-
-/* Palo abajo invertido */
 .card-suit-bottom {
     position: absolute;
     bottom: 28px;
@@ -81,18 +71,14 @@ def create_deck():
 def draw_card(deck):
     return deck.pop() if deck else None
 
-# --- CALCULAR PUNTOS ---
 def calcular_puntos(mano):
     total = sum(c["valor"] for c in mano)
     ases = sum(1 for c in mano if c["tipo"] == "A")
-
     while total > 21 and ases > 0:
         total -= 10
         ases -= 1
-
     return total
 
-# --- CARTA REALISTA ---
 def mostrar_carta(carta):
     color = "red" if carta["palo"] in ["♥", "♦"] else "black"
     return f"""
@@ -108,45 +94,33 @@ def mostrar_carta(carta):
 # --- ESTADO ---
 if "deck" not in st.session_state:
     st.session_state.deck = create_deck()
-
 if "player" not in st.session_state:
     st.session_state.player = []
-
 if "dealer" not in st.session_state:
     st.session_state.dealer = []
-
 if "game_over" not in st.session_state:
     st.session_state.game_over = False
-
 if "started" not in st.session_state:
     st.session_state.started = False
 
+st.title("🃏 Blackjack — Study OS Casino")
 
-# --- BOTÓN REPARTIR ---
+# REPARTIR
 if st.button("Repartir"):
     st.session_state.deck = create_deck()
     st.session_state.player = [draw_card(st.session_state.deck), draw_card(st.session_state.deck)]
     st.session_state.dealer = [draw_card(st.session_state.deck), draw_card(st.session_state.deck)]
     st.session_state.game_over = False
-    st.session_state.started = True   # <-- SOLUCIÓN CLAVE
+    st.session_state.started = True
 
-
-# --- MOSTRAR JUGADOR + BOTONES ---
 st.subheader("Jugador:")
-
 col1, col2 = st.columns([3, 1])
 
-with col1:
-    if st.session_state.player:
-        html = "".join(mostrar_carta(c) for c in st.session_state.player)
-        st.markdown(html, unsafe_allow_html=True)
-
+# --- PRIMERO: LÓGICA DE BOTONES ---
 with col2:
-    if st.session_state.started and not st.session_state.game_over:
-
+    if st.session_state.started and not st.session_state.game_over and st.session_state.player:
         puntos_jugador = calcular_puntos(st.session_state.player)
 
-        # HIT
         if puntos_jugador < 21:
             if st.button("Pedir carta"):
                 st.session_state.player.append(draw_card(st.session_state.deck))
@@ -154,19 +128,22 @@ with col2:
                 if puntos_jugador > 21:
                     st.session_state.game_over = True
 
-        # STAND
         if st.button("Plantarse"):
             st.session_state.game_over = True
 
-
 # --- IA DEL DEALER ---
 if st.session_state.game_over and st.session_state.started:
-
     while calcular_puntos(st.session_state.dealer) < 17:
         st.session_state.dealer.append(draw_card(st.session_state.deck))
 
+# --- DESPUÉS: DIBUJAR CARTAS DEL JUGADOR ---
+with col1:
+    if st.session_state.player:
+        html = "".join(mostrar_carta(c) for c in st.session_state.player)
+ 
+        st.markdown(html, unsafe_allow_html=True)
 
-# --- MOSTRAR DEALER ---
+# --- DEALER ---
 st.subheader("Dealer:")
 if st.session_state.dealer:
     html = "".join(mostrar_carta(c) for c in st.session_state.dealer)
@@ -175,7 +152,6 @@ if st.session_state.dealer:
 
 # --- RESULTADO ---
 if st.session_state.game_over and st.session_state.started:
-
     puntos_jugador = calcular_puntos(st.session_state.player)
     puntos_dealer = calcular_puntos(st.session_state.dealer)
 
@@ -189,7 +165,3 @@ if st.session_state.game_over and st.session_state.started:
         st.error("❌ Has perdido.")
     else:
         st.info("🤝 Empate.")
-
-
-
-
