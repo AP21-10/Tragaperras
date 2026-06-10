@@ -118,17 +118,20 @@ if "dealer" not in st.session_state:
 if "game_over" not in st.session_state:
     st.session_state.game_over = False
 
-# --- INTERFAZ ---
-st.title("🃏 Blackjack")
+if "started" not in st.session_state:
+    st.session_state.started = False
 
-# BOTÓN REPARTIR
+
+# --- BOTÓN REPARTIR ---
 if st.button("Repartir"):
     st.session_state.deck = create_deck()
     st.session_state.player = [draw_card(st.session_state.deck), draw_card(st.session_state.deck)]
     st.session_state.dealer = [draw_card(st.session_state.deck), draw_card(st.session_state.deck)]
     st.session_state.game_over = False
+    st.session_state.started = True   # <-- SOLUCIÓN CLAVE
 
-# MOSTRAR JUGADOR + BOTONES AL LADO
+
+# --- MOSTRAR JUGADOR + BOTONES ---
 st.subheader("Jugador:")
 
 col1, col2 = st.columns([3, 1])
@@ -139,11 +142,11 @@ with col1:
         st.markdown(html, unsafe_allow_html=True)
 
 with col2:
-    puntos_jugador = calcular_puntos(st.session_state.player)
+    if st.session_state.started and not st.session_state.game_over:
 
-    if st.session_state.player and not st.session_state.game_over:
+        puntos_jugador = calcular_puntos(st.session_state.player)
 
-        # BOTÓN HIT
+        # HIT
         if puntos_jugador < 21:
             if st.button("Pedir carta"):
                 st.session_state.player.append(draw_card(st.session_state.deck))
@@ -151,25 +154,28 @@ with col2:
                 if puntos_jugador > 21:
                     st.session_state.game_over = True
 
-        # BOTÓN STAND
+        # STAND
         if st.button("Plantarse"):
             st.session_state.game_over = True
 
-# --- LÓGICA DEL DEALER IA ---
-if st.session_state.game_over:
 
-    # Dealer pide hasta 17
+# --- IA DEL DEALER ---
+if st.session_state.game_over and st.session_state.started:
+
     while calcular_puntos(st.session_state.dealer) < 17:
         st.session_state.dealer.append(draw_card(st.session_state.deck))
 
-# MOSTRAR DEALER
+
+# --- MOSTRAR DEALER ---
 st.subheader("Dealer:")
 if st.session_state.dealer:
     html = "".join(mostrar_carta(c) for c in st.session_state.dealer)
     st.markdown(html, unsafe_allow_html=True)
 
+
 # --- RESULTADO ---
-if st.session_state.game_over:
+if st.session_state.game_over and st.session_state.started:
+
     puntos_jugador = calcular_puntos(st.session_state.player)
     puntos_dealer = calcular_puntos(st.session_state.dealer)
 
@@ -183,6 +189,7 @@ if st.session_state.game_over:
         st.error("❌ Has perdido.")
     else:
         st.info("🤝 Empate.")
+
 
 
 
