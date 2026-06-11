@@ -103,20 +103,58 @@ if "game_over" not in st.session_state:
 if "started" not in st.session_state:
     st.session_state.started = False
 
+# --- SISTEMA DE APUESTAS ---
+if "saldo" not in st.session_state:
+    st.session_state.saldo = 500  # saldo inicial
+
+if "apuesta" not in st.session_state:
+    st.session_state.apuesta = 0
+
 st.title("🃏 Blackjack — Study OS Casino")
+
+st.subheader(f"💰 Saldo: **{st.session_state.saldo}** chips")
+st.write("Selecciona tu apuesta:")
+
+colA, colB, colC, colD, colE = st.columns(5)
+
+def apostar(cantidad):
+    if st.session_state.saldo >= cantidad:
+        st.session_state.apuesta = cantidad
+
+with colA:
+    if st.button("5"):
+        apostar(5)
+with colB:
+    if st.button("10"):
+        apostar(10)
+with colC:
+    if st.button("25"):
+        apostar(25)
+with colD:
+    if st.button("50"):
+        apostar(50)
+with colE:
+    if st.button("100"):
+        apostar(100)
+
+st.write(f"🎲 Apuesta seleccionada: **{st.session_state.apuesta}** chips")
 
 # REPARTIR
 if st.button("Repartir"):
-    st.session_state.deck = create_deck()
-    st.session_state.player = [draw_card(st.session_state.deck), draw_card(st.session_state.deck)]
-    st.session_state.dealer = [draw_card(st.session_state.deck), draw_card(st.session_state.deck)]
-    st.session_state.game_over = False
-    st.session_state.started = True
+    if st.session_state.apuesta == 0:
+        st.warning("Debes seleccionar una apuesta antes de repartir.")
+    else:
+        st.session_state.saldo -= st.session_state.apuesta
+        st.session_state.deck = create_deck()
+        st.session_state.player = [draw_card(st.session_state.deck), draw_card(st.session_state.deck)]
+        st.session_state.dealer = [draw_card(st.session_state.deck), draw_card(st.session_state.deck)]
+        st.session_state.game_over = False
+        st.session_state.started = True
 
 st.subheader("Jugador:")
 col1, col2 = st.columns([3, 1])
 
-# --- PRIMERO: LÓGICA DE BOTONES ---
+# --- BOTONES ---
 with col2:
     if st.session_state.started and not st.session_state.game_over and st.session_state.player:
         puntos_jugador = calcular_puntos(st.session_state.player)
@@ -136,11 +174,10 @@ if st.session_state.game_over and st.session_state.started:
     while calcular_puntos(st.session_state.dealer) < 17:
         st.session_state.dealer.append(draw_card(st.session_state.deck))
 
-# --- DESPUÉS: DIBUJAR CARTAS DEL JUGADOR ---
+# --- CARTAS DEL JUGADOR ---
 with col1:
     if st.session_state.player:
         html = "".join(mostrar_carta(c) for c in st.session_state.player)
- 
         st.markdown(html, unsafe_allow_html=True)
 
 # --- DEALER ---
@@ -148,7 +185,6 @@ st.subheader("Dealer:")
 if st.session_state.dealer:
     html = "".join(mostrar_carta(c) for c in st.session_state.dealer)
     st.markdown(html, unsafe_allow_html=True)
-
 
 # --- RESULTADO ---
 if st.session_state.game_over and st.session_state.started:
@@ -159,9 +195,20 @@ if st.session_state.game_over and st.session_state.started:
         st.error("❌ Te pasaste de 21. Pierdes.")
     elif puntos_dealer > 21:
         st.success("🎉 El dealer se pasó de 21. ¡Ganas!")
+        st.session_state.saldo += st.session_state.apuesta * 2
     elif puntos_jugador > puntos_dealer:
         st.success("🏆 ¡Has ganado!")
+        st.session_state.saldo += st.session_state.apuesta * 2
     elif puntos_jugador < puntos_dealer:
         st.error("❌ Has perdido.")
     else:
         st.info("🤝 Empate.")
+        st.session_state.saldo += st.session_state.apuesta  # devuelve apuesta
+
+    if st.button("Jugar otra vez"):
+        st.session_state.player = []
+        st.session_state.dealer = []
+        st.session_state.apuesta = 0
+        st.session_state.started = False
+        st.session_state.game_over = False
+
