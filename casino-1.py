@@ -161,7 +161,7 @@ if jugar:
         premio = apuesta * 2
         st.session_state.creditos += premio
         st.success(f"🎉 WIN! +{premio}")
-    elif mensaje=="JACKPOT"
+    elif mensaje=="JACKPOT":
         premio = apuesta * 5
         st.session_state.creditos += premio
         st.success(f"🎉 JACKPOT! +{premio}")
