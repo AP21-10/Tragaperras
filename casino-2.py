@@ -243,4 +243,4 @@ if st.session_state.game_over and st.session_state.started:
         st.session_state.player = []
         st.session_state.dealer = []
         st.session_state.apuesta = 0
-        st.session_state.apuesta_realizada = 
+        st.session_state.apuesta_realizada = False
