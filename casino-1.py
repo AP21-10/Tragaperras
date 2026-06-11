@@ -139,7 +139,7 @@ if jugar:
 
     # Determinar si gana
     if resultado[0] == resultado[1] == resultado[2]:
-        mensaje = "WIN"
+        mensaje = "JACKPOT"
         color_texto = "#00ff55"
     elif resultado[0] == resultado[1] or resultado[1] == resultado[2] or resultado[0] == resultado[2]:
         mensaje = "WIN"
@@ -161,6 +161,12 @@ if jugar:
         premio = apuesta * 2
         st.session_state.creditos += premio
         st.success(f"🎉 WIN! +{premio}")
+    elif mensaje=="JACKPOT"
+        premio = apuesta * 5
+        st.session_state.creditos += premio
+        st.success(f"🎉 JACKPOT! +{premio}")
+    
+    
     else:
         st.write("😢 LOSE")
 
