@@ -63,19 +63,26 @@ st.markdown("""
 }
 
 /* CHIPS REALISTAS */
-.chip {
-    width: 70px;
-    height: 70px;
+.chip-btn {
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
-    font-size: 22px;
-    font-weight: bold;
-    color: white;
     border: 4px solid white;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 26px;
+    font-weight: bold;
+    color: white;
     cursor: pointer;
+    margin: auto;
+    box-shadow: 0px 0px 10px #00000055;
 }
+.chip-red { background: #d40000; }
+.chip-blue { background: #0044cc; }
+.chip-green { background: #009933; }
+.chip-black { background: #111; }
+.chip-purple { background: #6a0dad; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -159,17 +166,23 @@ if st.session_state.started and not st.session_state.apuesta_realizada:
     st.subheader("💰 Selecciona tu apuesta:")
 
     cols = st.columns(5)
+
     chips = [
-        (5, "red"),
-        (10, "blue"),
-        (25, "green"),
-        (50, "black"),
-        (100, "purple")
+        (5, "chip-red"),
+        (10, "chip-blue"),
+        (25, "chip-green"),
+        (50, "chip-black"),
+        (100, "chip-purple")
     ]
 
-    for i, (valor, color) in enumerate(chips):
+    for i, (valor, clase) in enumerate(chips):
         with cols[i]:
-            if st.button(f"{valor}", key=f"chip{valor}"):
+            if st.button(
+                f"<div class='chip-btn {clase}'>{valor}</div>",
+                key=f"chip{valor}",
+                help=f"Apostar {valor} chips",
+                use_container_width=True
+            ):
                 if st.session_state.saldo >= valor:
                     st.session_state.apuesta = valor
                     st.session_state.saldo -= valor
@@ -182,10 +195,8 @@ st.subheader("Dealer:")
 
 if st.session_state.dealer:
     if not st.session_state.game_over:
-        # Mostrar solo la primera carta + carta oculta
         html = mostrar_carta(st.session_state.dealer[0]) + carta_oculta()
     else:
-        # Mostrar todas las cartas
         html = "".join(mostrar_carta(c) for c in st.session_state.dealer)
 
     st.markdown(html, unsafe_allow_html=True)
@@ -212,7 +223,6 @@ if st.session_state.game_over and st.session_state.started:
     puntos_jugador = calcular_puntos(st.session_state.player)
     puntos_dealer = calcular_puntos(st.session_state.dealer)
 
-    # RESULTADOS
     if puntos_jugador > 21:
         st.error("❌ Te pasaste de 21. Pierdes.")
     elif puntos_dealer > 21:
@@ -233,4 +243,4 @@ if st.session_state.game_over and st.session_state.started:
         st.session_state.player = []
         st.session_state.dealer = []
         st.session_state.apuesta = 0
-        st.session_state.apuesta_realizada = False
+        st.session_state.apuesta_realizada = 
