@@ -75,7 +75,7 @@ if "ultimo_juego" not in st.session_state:
     st.session_state.ultimo_juego = None
 
 # MÁS OBJETOS
-["🍒", "🍋", "⭐", "💎", "🍀", "🔥", "🍉", "🔔", "💰", "🎲"]
+símbolos=["🍒", "🍋", "⭐", "💎", "🍀", "🔥", "🍉", "🔔", "💰", "🎲"]
 
 
 # --- MÁQUINA ---
