@@ -75,7 +75,7 @@ if "ultimo_juego" not in st.session_state:
     st.session_state.ultimo_juego = None
 
 # MÁS OBJETOS
-simbolos = ["🍒", "🍋", "⭐", "💎", "🍀", "🔥", "🍉", "🔔", "💰", "🎲"]
+simbolos = ["🍒", "🍋", "⭐"]
 
 # --- MÁQUINA ---
 st.markdown('<div class="machine">', unsafe_allow_html=True)
